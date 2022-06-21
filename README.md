@@ -19,6 +19,13 @@ I've developed a few additional examples, including using action streams to "pas
 * Add catchError for all http requests
 * Fetching all Suppliers in supplier.service.ts
 
+### Hot and Cold Observables
+
+* Cold Observable(Unicast): Doesn't emit until subscribed to
+  * Observable returned from http get call
+* Hot Observable(Multicast): Emits without subscribers
+  * Subject or BehaviorSubject
+
 ### Reacting to Actions
 
 * Use of Subject and BehaviorSubject for Action Streams
