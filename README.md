@@ -163,6 +163,54 @@ todosForUser$ = this.userEnteredAction$
     * Make requests as and when required
     * mergeMap
 
+### Get It All
+
+```ts
+selectedProductSuppliers$ = combineLatest([
+    this.selectedProduct$,
+    this.supplierService.suppliers$
+  ]).pipe(
+    map(([selectedProduct, suppliers]) =>
+      suppliers.filter(supplier => selectedProduct?.supplierIds?.includes(supplier.id))
+    )
+  );
+```
+
 ### Just in Time
 
 ![Just in time](img/jit.png)
+```ts
+selectedProductSuppliers$ = this.selectedProduct$
+    .pipe(
+      filter(product => Boolean(product)),
+      switchMap(selectedProduct => {
+        if (selectedProduct?.supplierIds) {
+          return forkJoin(selectedProduct.supplierIds.map(supplierId =>
+            this.http.get<Supplier>(`${this.suppliersUrl}/${supplierId}`)))
+        } else {
+          return of([]);
+        }
+      }),
+      tap(suppliers => console.log('product suppliers', JSON.stringify(suppliers)))
+    );
+// Using forkJoin simplies the process
+// Otherwise we had to use mergeMap with toArray
+```
+
+### Multiple Async Pipes to Single
+
+* Combine all of the Observables for our view with only 1 Observable(vm$ which stands for view model) so that we will need only 1 Async pipe
+```ts
+// product-detail.component.ts
+vm$ = combineLatest([
+    this.product$,
+    this.productSuppliers$,
+    this.pageTitle$
+  ])
+    .pipe(
+      filter(([product]) => Boolean(product)),
+      map(([product, productSuppliers, pageTitle]) =>
+        ({ product, productSuppliers, pageTitle }))
+    );
+// errorMessage$ is not included in combineLatest because it doesn't emit if everything is going well
+```
