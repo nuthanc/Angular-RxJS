@@ -233,3 +233,17 @@ vm$ = combineLatest([
 * Catch the error and replace the errored Observable
   * Don't replace an errored action Observable with EMPTY
   * Replace with a default or empty value
+
+### Debugging Observables
+
+* Use the tap operator before and after
+* Hover over the Observable to view the type
+* Is there a Subscription?
+  * subscribe or async pipe
+* Is there an Operator waiting for Completion?
+  * Action streams do not complete, beware of this
+* Walk through the flow
+  * Start at the source(Maybe Http request)
+  * Walk through each operator in the pipeline(Adding tap)
+  * Follow through to the UI(View result in the UI)
+* Draw a Marble Diagram
