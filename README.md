@@ -32,15 +32,18 @@ I've developed a few additional examples, including using action streams to "pas
 * Combine the action and data streams
 * Emit a value to the action stream when an action occurs
 * startWith for initial value for Subjects
+* Action Stream created with a Subject does not immediately emit
+* When combining an action stream, consider using a BehaviorSubject since it emits a default value
 
 ### combineLatest, forkJoin and withLatestFrom
 
 * combineLatest for combining the latest values from its Input Observables
   * All the Input Observables must emit once for combineLatest to emit
 * forkJoin is for last values of its Input Observables
-  * * All the Input Observables must complete for forkJoin to emit
+  * All the Input Observables must complete for forkJoin to emit
 * withLatest is for fetching the latest values when another Source Observable emits
   * If the Source observable completes before withLatestFrom emission, no values are emitted
+  * * The Input Observable must emit once for withLatest to emit
 
 
 ### Managing state with scan and merge
