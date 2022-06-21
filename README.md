@@ -214,3 +214,12 @@ vm$ = combineLatest([
     );
 // errorMessage$ is not included in combineLatest because it doesn't emit if everything is going well
 ```
+
+### Tips with Action Streams
+
+* Action Streams only emit if it is active
+* If the Stream is stopped, it won't emit
+* An Unhandled error causes the stream to stop
+* Catch the error and replace the errored Observable
+  * Don't replace an errored action Observable with EMPTY
+  * Replace with a default or empty value
