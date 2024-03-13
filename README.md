@@ -23,8 +23,12 @@ I've developed a few additional examples, including using action streams to "pas
 
 * Cold Observable(Unicast): Doesn't emit until subscribed to
   * Observable returned from http get call
+  * Example: Netflix
 * Hot Observable(Multicast): Emits without subscribers
   * Subject or BehaviorSubject
+  * Example: Movie Theatre
+* Nice read here using Netflix and Movie Theatre: https://stackoverflow.com/questions/2521277/what-are-the-hot-and-cold-observables
+
 
 ### Reacting to Actions
 
